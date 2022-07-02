@@ -1,6 +1,7 @@
 import useStore from "@/helpers/store";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { Input } from 'input-manager'
 // import Shader from '@/components/canvas/ShaderExample/ShaderExample'
 
 // Prefer dynamic import for production builds
@@ -13,6 +14,8 @@ const Shader = dynamic(
     ssr: false,
   }
 );
+
+console.log('input class', Input)
 
 // DOM elements here
 const DOM = () => {
