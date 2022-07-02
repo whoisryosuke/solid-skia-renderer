@@ -27,19 +27,39 @@
     "url": "https://github.com/whoisryosuke/input-manager.git"
   },
   "release": {
-    "prepare": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
       {
-        "path": "@semantic-release/git",
-        "assets": [
-          "dist/**/*.{js,ts}",
-          "package.json",
-          "package-lock.json",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
       }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "dist/**/*.{js,ts}",
+            "package.json",
+            "package-lock.json",
+            "CHANGELOG.md"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
+        }
+      ]
     ]
   }
 }
