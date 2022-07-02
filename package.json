@@ -1,0 +1,35 @@
+{
+  "name": "input-manager-monorepo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "yarn workspace input-manager build",
+    "prettier": "prettier -l \"./packages/**/*.{js,jsx,ts,tsx,md}\" --write"
+  },
+  "devDependencies": {},
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
