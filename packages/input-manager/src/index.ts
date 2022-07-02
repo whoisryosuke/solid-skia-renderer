@@ -1,3 +1,7 @@
-const test = true
+import Input from "./modules/input";
+import useKeyPress from "./hooks/useKeyPress";
 
-export default test
+export {
+    Input,
+    useKeyPress
+}
