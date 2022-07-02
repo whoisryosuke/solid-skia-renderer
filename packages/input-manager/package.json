@@ -58,5 +58,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "joymap": "^2.2.4"
   }
 }
