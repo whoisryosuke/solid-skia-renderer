@@ -2123,6 +2123,8 @@ var require_react = __commonJS({
 var src_exports = {};
 __export(src_exports, {
   Input: () => Input,
+  gamepads: () => gamepads,
+  joymap: () => joymap,
   useKeyPress: () => useKeyPress
 });
 module.exports = __toCommonJS(src_exports);
@@ -2209,9 +2211,31 @@ function useKeyPress(targetKey, pressMethod, downMethod, upMethod) {
   }, []);
   return keyPressed;
 }
+
+// src/utils/gamepad.ts
+var import_joymap = require("joymap");
+
+// src/config.ts
+var MAX_GAMEPADS = 4;
+
+// src/utils/gamepad.ts
+var joymap = (0, import_joymap.createJoymap)({
+  onPoll() {
+  }
+});
+var gamepads = Array(MAX_GAMEPADS).fill(0).map((player, index) => {
+  const module2 = (0, import_joymap.createQueryModule)();
+  joymap.addModule(module2);
+  return {
+    name: `Gamepad${index + 1}`,
+    module: module2
+  };
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Input,
+  gamepads,
+  joymap,
   useKeyPress
 });
 /**
