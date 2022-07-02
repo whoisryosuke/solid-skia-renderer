@@ -2134,7 +2134,6 @@ var Input = class {
   constructor() {
     this.players = [];
     this.observers = /* @__PURE__ */ new Set();
-    this.lastDevice = 0;
   }
   setInputMap(keys, player = 0) {
     if (this.players[player]) {
