@@ -1,5 +1,5 @@
 {
-  "name": "input-manager",
+  "name": "@whoisryosuke/input-manager",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "authors": [
