@@ -14,10 +14,11 @@ import { DeviceList, PlayerInputState, KeyState, KeyTypes, KeyCallbacks, InputOb
  * @see: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/Actions.html
  */
 export default class Input {
+  // This might get renamed to "devices" to remove confusion
+  // since ideally only 1 device per "player" here anyway
   public players: PlayerInputState[] = []
   // Observers for input. This receives all players input.
   public observers: Set<InputObserver> = new Set()
-  public lastDevice: DeviceList = 0
 
   /**
    * Initialize or override current key mapping
