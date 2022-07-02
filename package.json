@@ -12,10 +12,10 @@
   ],
   "scripts": {
     "dev": "yarn workspace input-manager-docs dev",
-    "build": "yarn workspace @whoisryosuke/input-manager build",
+    "build": "yarn workspace input-map build",
     "prettier": "prettier -l \"./packages/**/*.{js,jsx,ts,tsx,md}\" --write",
     "commit": "git-cz",
-    "release": "yarn workspace @whoisryosuke/input-manager release"
+    "release": "yarn workspace input-map release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

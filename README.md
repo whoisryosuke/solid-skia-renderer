@@ -1,6 +1,6 @@
 # Input Manager JS
 
-`npm i @whoisryosuke/input-manager`
+`npm i input-map`
 
 ### Lint and Code Formatting
 

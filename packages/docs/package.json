@@ -26,7 +26,7 @@
     "@react-three/fiber": "^8.0.22",
     "babel-plugin-glsl": "^1.0.0",
     "glsl-random": "^0.0.5",
-    "@whoisryosuke/input-manager": "*",
+    "input-map": "*",
     "leva": "^0.9.27",
     "next": "^12.1.6",
     "react": "^18.1.0",
