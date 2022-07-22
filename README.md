@@ -1,29 +1,22 @@
-# React Typescript Monorepo
+# Solid ThreeJS Renderer
 
-Starter template for React / Typescript libraries using tsup and Yarn workspaces.
+Custom renderer for SolidJS using ThreeJS/WebGL. Write JSX, render directly to ThreeJS, no DOM required (except the 1 canvas to render).
 
 This is setup with a Semantic Release workflow based off Conventional Commits. And it's automatically released to Github and NPM using Github Actions.
 
 ## Development
 
-There's a NextJS website under `packages/docs` to be a playground to develop and test the library.
+There's a Vite website under `packages/demo` to be a playground to develop and test the library.
 
-1. Fork/clone this repo: `https://github.com/whoisryosuke/react-typescript-monorepo-2022.git`
+1. Fork/clone this repo: `https://github.com/whoisryosuke/solid-three-renderer.git`
 1. Install dependencies: `yarn`
-1. Build the library: `yarn build`
-1. Start the NextJS playground: `yarn dev`
+1. Start the Vite playground: `yarn dev`
 
 ## Building package
 
 1. `yarn build`
 
 This runs the `tsup` process for one package/module. Check the `package.json` and `packages/input-manager/package.json` for more info.
-
-## Adding packages
-
-1. Rename the `packages/input-manager` folder to your package/module name.
-1. Edit the `packages/your-new-pkg/package.json` and change the package/module name (as well as other details - like author).
-1. Edit the root `package.json` and change the `build` and `release` scripts to reference your new package/module name (you can also just find/replace across all files)
 
 ## Release to Github/NPM
 
