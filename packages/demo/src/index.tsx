@@ -1,5 +1,5 @@
 import { createSignal, onCleanup, batch } from "solid-js";
-import { render } from "solid-three-renderer";
+import { render, VElement } from "solid-three-renderer";
 import Repeat from "./Repeat";
 
 const random = () => Math.random() * 360;
@@ -38,4 +38,7 @@ function App() {
   );
 }
 
-render(App, null);
+const tree = new VElement('root')
+
+render(App, tree);
+console.log('tree', tree)

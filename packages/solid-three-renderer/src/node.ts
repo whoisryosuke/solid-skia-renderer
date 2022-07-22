@@ -24,6 +24,8 @@ enum VNodeTypes {
     COMMENT,
 }
 
+type ThreeParents = THREE.Scene | THREE.Object3D;
+
 /**
  * Virtual node based on DOM Node
  */
@@ -45,7 +47,7 @@ export class VNode {
     // ThreeJS specific
     // We keep track of the parent element (scene, group, mesh, etc)
     // so we can add object to ThreeJS Scene (or nest it appropriately)
-    parentElement: THREE.Scene | THREE.Object3D;
+    parentElement: ThreeParents;
 
     constructor(content: any, parent = null, type = VNodeTypes.ELEMENT, parentElement?: THREE.Scene | THREE.Object3D) {
         // super();
@@ -72,13 +74,22 @@ export class VNode {
         ]
     }
 
+    setParentNode(node: VNode) {
+        this.parentNode = node;
+    }
+
+    setParentElement(node: ThreeParents) {
+        this.parentElement = node;
+    }
+
     // Inserts node before the anchor node
     // If no node is provided, node is inserted as last child
     insertBefore(node: VNode, anchor: VNode | null) {
         // Set this node as the parent to the incoming node
-        node.parentNode = this;
+        console.log('inserting before', node.setParentNode, node.content)
+        node.setParentNode(this);
+        node.setParentElement(this.parentElement);
         // ThreeJS: Set the scene from parent node
-        node.parentElement = this.parentElement;
 
         // Find anchor and insert node using anchor index 
         // (aka before, since it will push anchor index forward)

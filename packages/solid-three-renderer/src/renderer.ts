@@ -17,6 +17,7 @@ export const {
   mergeProps
 } = createRenderer({
   createElement(string: SupportedThreeElements): VElement {
+    console.log('creating element', string);
     return createThreeElement(string);
   },
   createTextNode(value: string): VElement {
@@ -31,6 +32,11 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
+    console.log('render', parent, node, node.childNodes[0], node.content)
+    if(!parent){
+      console.log('no parent found!', node, node.content, node.childNodes)
+    }
+    console.log('inserting node', node);
     parent.insertBefore(node, anchor);
   },
   isTextNode(node: VElement) {

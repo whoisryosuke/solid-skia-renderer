@@ -10,7 +10,33 @@ const THREE_ELEMENTS = {
     'boxBufferGeometry': "BoxBufferGeometry",
 }
 
+
 export type SupportedThreeElements = keyof typeof THREE_ELEMENTS;
+
+// The scene and renderer are initialized together
+const newScene = (...props: any[]) => {
+    const scene = new THREE.Scene();
+
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    // SSR Warning: We assume DOM here
+    document.body.appendChild( renderer.domElement );
+
+    return [scene, renderer];
+}
+
+// Handle special cases for initializing ThreeJS elements
+const threeHandler = (type: SupportedThreeElements, ...props: any[]) => {
+    switch(type) {
+        case 'scene':
+            const scene = newScene(...props);
+            return scene;
+        default:
+            const elementName = THREE_ELEMENTS[type];
+            const newElement = new THREE[elementName](...props)
+            return newElement;
+    }
+}
 
 /**
  * Creates a ThreeJS element and attaches to virtual node/element system
@@ -21,8 +47,7 @@ export type SupportedThreeElements = keyof typeof THREE_ELEMENTS;
  */
 export const createElement = (type: SupportedThreeElements, ...props: any[]): VElement => {
     // Create ThreeJS element
-    const elementName = THREE_ELEMENTS[type];
-    const newElement = new THREE[elementName](...props)
+    const newElement = threeHandler(type, ...props)
 
     // Create Element/Node class and assign ThreeJS element
     const newNode = new VElement(newElement);
@@ -32,5 +57,6 @@ export const createElement = (type: SupportedThreeElements, ...props: any[]): VE
         newNode.parentElement = newElement;
     }
 
+    console.log('created threejs element', newNode)
     return newNode;
 }
