@@ -1,5 +1,5 @@
 {
-  "name": "solid-three-renderer",
+  "name": "solid-canvaskit-renderer",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "authors": [
@@ -15,8 +15,8 @@
     "dist"
   ],
   "dependencies": {
-    "solid-js": "^1.4.7",
-    "three": "^0.142.0"
+    "canvaskit-wasm": "^0.35.0",
+    "solid-js": "^1.4.7"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",

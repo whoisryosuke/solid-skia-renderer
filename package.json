@@ -1,5 +1,5 @@
 {
-  "name": "input-manager-monorepo",
+  "name": "solid-canvaskit-renderer-monorepo",
   "version": "0.0.0",
   "main": "index.js",
   "authors": [
@@ -11,11 +11,11 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace solid-three-renderer-demo dev",
-    "build": "yarn workspace solid-three-renderer build",
+    "dev": "yarn workspace solid-canvaskit-renderer-demo dev",
+    "build": "yarn workspace solid-canvaskit-renderer build",
     "prettier": "prettier -l \"./packages/**/*.{js,jsx,ts,tsx,md}\" --write",
     "commit": "git-cz",
-    "release": "yarn workspace solid-three-renderer release"
+    "release": "yarn workspace solid-canvaskit-renderer release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

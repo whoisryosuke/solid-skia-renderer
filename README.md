@@ -1,6 +1,6 @@
-# Solid ThreeJS Renderer
+# Solid CanvasKit Renderer
 
-Custom renderer for SolidJS using ThreeJS/WebGL. Write JSX, render directly to ThreeJS, no DOM required (except the 1 canvas to render).
+Custom renderer for SolidJS using Skia's CanvasKit/WebGL. Write JSX, render directly to canvas, no DOM required (except the 1 canvas to render). You can also setup CanvasKit to render to a virtual canvas via the server-side (like generating an image, or handling SSR for webpage).
 
 This is setup with a Semantic Release workflow based off Conventional Commits. And it's automatically released to Github and NPM using Github Actions.
 
@@ -8,7 +8,7 @@ This is setup with a Semantic Release workflow based off Conventional Commits. A
 
 There's a Vite website under `packages/demo` to be a playground to develop and test the library.
 
-1. Fork/clone this repo: `https://github.com/whoisryosuke/solid-three-renderer.git`
+1. Fork/clone this repo: `https://github.com/whoisryosuke/solid-canvaskit-renderer.git`
 1. Install dependencies: `yarn`
 1. Start the Vite playground: `yarn dev`
 
