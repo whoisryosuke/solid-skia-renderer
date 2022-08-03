@@ -1,8 +1,20 @@
-# Solid CanvasKit Renderer
+# Solid Universal Renderer Template
 
-Custom renderer for SolidJS using Skia's CanvasKit/WebGL. Write JSX, render directly to canvas, no DOM required (except the 1 canvas to render). You can also setup CanvasKit to render to a virtual canvas via the server-side (like generating an image, or handling SSR for webpage).
+Custom renderer for SolidJS using [your API here!]. Write JSX, render directly to [whatever you want!], no DOM required (unless you want!).
 
 This is setup with a Semantic Release workflow based off Conventional Commits. And it's automatically released to Github and NPM using Github Actions.
+
+## How to use
+
+1. Follow the instructions below to get the dev server up.
+1. Check out the renderer inside `packages/solid-canvaskit-renderer`. This where the action happens like creating new elements, setting props, etc. I setup `console.log` in a few places to give you an idea of what you get to work with.
+1. Your goal should be to take "elements" (usually strings from element tags e.g. `<yourElement>`) and render those somehow (ThreeJS, CanvasKit, or even custom DOM).
+
+### Tips
+
+- You don't need to implement all the renderer methods! Most are kinda optional, especially if you don't have things like parent/child relationships between components.
+- Similarly, you don't necessarily need a (virtual or not) DOM/node tree. If your graphics API is a flat scene graph, you don't need to worry about all the "parent"/"child" methods. If you do need a virtual DOM, I have a `VNode` class that has most methods you'll need.
+- SolidJS goes through the component tree as a giant call stack of functions, first starting with `createElement`, then `insertBefore`, etc.
 
 ## Development
 
@@ -41,3 +53,8 @@ If you use VSCode, Prettier should run each time you save a compatible file.
 > If you don't like this, go to `.vscode\settings.json` and disable there (or you can do it via your own VSCode settings).
 
 `yarn lint` runs ESLint and Prettier, automatically formats files and rewrites them. Make sure to stage your code before running just in case.
+
+## References
+
+- [solid-three](https://github.com/nksaraf/solid-three/)
+- [solid-canvaskit-renderer](https://github.com/whoisryosuke/solid-canvaskit-renderer)
