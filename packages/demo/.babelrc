@@ -1,5 +1,11 @@
 {
     "presets": [
-        "babel-preset-solid"
+        [
+            "babel-preset-solid",
+            {
+                "moduleName": "solid-canvaskit-renderer",
+                "generate": "universal"
+            }
+        ]
     ]
 }

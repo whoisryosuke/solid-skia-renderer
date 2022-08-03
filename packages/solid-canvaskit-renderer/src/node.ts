@@ -24,7 +24,7 @@ enum VNodeTypes {
     COMMENT,
 }
 
-type ThreeParents = THREE.Scene | THREE.Object3D;
+type ParentElements = THREE.Scene | THREE.Object3D;
 
 /**
  * Virtual node based on DOM Node
@@ -47,7 +47,7 @@ export class VNode {
     // ThreeJS specific
     // We keep track of the parent element (scene, group, mesh, etc)
     // so we can add object to ThreeJS Scene (or nest it appropriately)
-    parentElement: ThreeParents;
+    parentElement: ParentElements;
 
     constructor(content: any, parent = null, type = VNodeTypes.ELEMENT, parentElement?: THREE.Scene | THREE.Object3D) {
         // super();

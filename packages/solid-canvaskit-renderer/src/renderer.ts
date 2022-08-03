@@ -1,7 +1,11 @@
 // example custom dom renderer
 import { createRenderer } from "solid-js/universal";
 import { VElement } from "./node"
-import { createElement as createThreeElement, SupportedThreeElements } from "./three"
+// import { createElement as createThreeElement, SupportedThreeElements } from "./three"
+
+const log = (...args) => {
+  console.log(`[RENDERER] `, ...args);
+}
 
 export const {
   render,
@@ -16,9 +20,11 @@ export const {
   setProp,
   mergeProps
 } = createRenderer({
-  createElement(string: SupportedThreeElements): VElement {
-    console.log('creating element', string);
-    return createThreeElement(string);
+  createElement(string: string): VElement {
+    log('creating element', string);
+    // return createThreeElement(string);
+
+    return new VElement('text');
   },
   createTextNode(value: string): VElement {
     // @TODO: Figure out Text in ThreeJS
@@ -32,12 +38,16 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
-    console.log('render', parent, node, node.childNodes[0], node.content)
+    log('render', parent, node, node.childNodes[0], node.content)
     if(!parent){
-      console.log('no parent found!', node, node.content, node.childNodes)
+      log('no parent found!', node, node.content, node.childNodes)
     }
-    console.log('inserting node', node);
-    parent.insertBefore(node, anchor);
+    log('inserting node', node);
+    // parent.insertBefore(node, anchor);
+
+    // Ideally we don't need this? Since CanvasKit/Skia doesn't use a node-based system
+    // Our goal is just to take JSX and convert it to a render/draw call
+    // Unless SolidJS needs this to manage JSX changes? (like hiding an element and thus removing from "DOM"?)
   },
   isTextNode(node: VElement) {
     return node.type === 3;

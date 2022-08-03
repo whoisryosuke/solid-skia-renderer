@@ -1,5 +1,5 @@
 import { createSignal, onCleanup, batch } from "solid-js";
-import { render, VElement } from "solid-three-renderer";
+import { render, VElement } from "solid-canvaskit-renderer";
 import Repeat from "./Repeat";
 
 const random = () => Math.random() * 360;
@@ -28,17 +28,11 @@ function App() {
   onCleanup(() => cancelAnimationFrame(frame));
 
   return (
-      <scene>
-        <perspectiveCamera location={[0, 0, 3.2]} />
-        <directionalLight direction={[-5, 0, -10]} />
-        {/* <Repeat count={count()}>
-          {(i) => <Mesh geometry={box()} rotation={boxes()[i]} />}
-        </Repeat> */}
-      </scene>
+      <newleement></newleement>
   );
 }
 
 const tree = new VElement('root')
 
 render(App, tree);
-console.log('tree', tree)
+console.log('[APP] node tree', tree)
