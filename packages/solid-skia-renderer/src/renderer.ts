@@ -20,16 +20,15 @@ export const {
   setProp,
   mergeProps
 } = createRenderer({
-  createElement(string: string): VElement {
-    log('creating element', string);
-    // return createThreeElement(string);
+  createElement(elementName: string): VElement {
+    log('creating element', elementName);
 
-    return new VElement('text');
+    return new VElement(elementName);
   },
-  createTextNode(value: string): VElement {
+  createTextNode(elementName: string): VElement {
     // @TODO: Figure out Text in ThreeJS
     // return createTextElement(value);
-    return new VElement('text');
+    return new VElement(elementName);
   },
   replaceText(textNode: VElement, value) {
     textNode.content = value;

@@ -3,6 +3,11 @@ import { render, VElement } from "solid-skia-renderer";
 import { createSignal, onCleanup, batch } from "solid-js";
 import Window from "./components/Window"
 
+const Button = () => {
+  console.log('[BUTTON] rendering')
+  return <button></button>;
+}
+
 const [frames, setFrames] = createSignal(0);
 
 const App = () => {
@@ -19,11 +24,16 @@ const App = () => {
   //@ts-ignore
   return <testelement>
   {/* @ts-ignore  */}
-    <Window frames={frames()} />
+    <Window frames={frames()}>
+      <Button />
+    </Window>
   {/* @ts-ignore  */}
-    <Window frames={frames()} />
+    <Window frames={frames()}>
+      <Button />
+    </Window>
   {/* @ts-ignore  */}
   </testelement>;
 }
+const rootEl = new VElement('root');
 //@ts-ignore
-render(App, null);
+render(App, rootEl);
