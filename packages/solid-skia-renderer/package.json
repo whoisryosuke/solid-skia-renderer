@@ -1,7 +1,7 @@
 {
   "name": "solid-skia-renderer",
   "version": "0.0.0",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "authors": [
     "Ryosuke Hana <https://twitter.com/whoisryosuke>"
   ],
