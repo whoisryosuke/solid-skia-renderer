@@ -6,6 +6,8 @@ type Props = {}
 const Window = (props: ParentProps<Props>) => {
 
     const childrenMap = children(() => props.children);
+    // const childrenArray = childrenMap.toArray();
+    // console.log('[WINDOW] children', props.children, childrenArray[0].render)
 
     // Initialize Window
     let win = new SkiaWindow(300, 300,{background:'rgba(16, 16, 16, 0.35)'});
@@ -15,17 +17,21 @@ const Window = (props: ParentProps<Props>) => {
     win.on("draw", (e) => {
         let ctx: CanvasRenderingContext2D = e.target.canvas.getContext("2d");
         // console.log("test", e.target);
-        ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
-        ctx.beginPath();
-        ctx.arc(150, 150, 50, 0, 2 * Math.PI);
-        ctx.stroke();
+        // ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
+        // ctx.beginPath();
+        // ctx.arc(150, 150, 50, 0, 2 * Math.PI);
+        // ctx.stroke();
 
-        ctx.beginPath();
-        ctx.arc(150, 150, 10, 0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.fill();
+        // ctx.beginPath();
+        // ctx.arc(150, 150, 10, 0, 2 * Math.PI);
+        // ctx.stroke();
+        // ctx.fill();
+
+        const childrenArray = childrenMap.toArray();
+        childrenArray.forEach((child) => child?.render?.(e, ctx))
         
-        console.log('[WINDOW] children', props.children, childrenMap.toArray())
+        
+        // console.log('[WINDOW] children', props.children, childrenMap.toArray())
     });
 
     win.on('mousemove', ({button, x, y, target, ctrlKey, altKey, shiftKey, metaKey, pageX, pageY, ...rest}) => {

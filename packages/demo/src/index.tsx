@@ -2,10 +2,11 @@ import store from "./store";
 import { render, VElement } from "solid-skia-renderer";
 import { createSignal, onCleanup, batch } from "solid-js";
 import Window from "./components/Window"
+import SkiaButton from "./elements/Button";
 
 const Button = () => {
   console.log('[BUTTON] rendering')
-  return <button></button>;
+  return new SkiaButton('button');
 }
 
 const [frames, setFrames] = createSignal(0);
