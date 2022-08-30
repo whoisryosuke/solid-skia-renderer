@@ -1,7 +1,20 @@
 module.exports = {
   presets: [
     "@babel/preset-typescript",
-    ["solid", { generate: "ssr", hydratable: false }],
+    [
+      "solid",
+      {
+        generate: "universal",
+
+        renderers: [
+          {
+            name: "universal",
+            moduleName: "solid-skia-renderer",
+            elements: []
+          }
+        ]
+      }
+    ],
     // "solid",
     [
       "@babel/preset-env",
