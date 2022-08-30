@@ -1,7 +1,7 @@
 {
   "name": "solid-skia-renderer-demo",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "license": "MIT",
   "dependencies": {
     "skia-canvas": "^1.0.0",
@@ -9,9 +9,9 @@
     "zustand": "^4.1.1"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "lint:ts": "tsc src/index.ts --noEmit",
-    "build": "tsc src/index.ts"
+    "start": "ts-node src/index.tsx",
+    "lint:ts": "tsc src/index.tsx --noEmit",
+    "build": "tsc src/index.tsx"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",

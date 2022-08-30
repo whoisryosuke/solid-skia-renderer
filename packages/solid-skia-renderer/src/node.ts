@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 /**
  * Types of Virtual Nodes
  * Generic types to describe the different content types inside nodes
@@ -24,8 +23,6 @@ enum VNodeTypes {
     COMMENT,
 }
 
-type ParentElements = THREE.Scene | THREE.Object3D;
-
 /**
  * Virtual node based on DOM Node
  */
@@ -44,18 +41,12 @@ export class VNode {
     // So renderer can detect things like text and handle accordingly
     type: VNodeTypes;
 
-    // ThreeJS specific
-    // We keep track of the parent element (scene, group, mesh, etc)
-    // so we can add object to ThreeJS Scene (or nest it appropriately)
-    parentElement: ParentElements;
-
-    constructor(content: any, parent = null, type = VNodeTypes.ELEMENT, parentElement?: THREE.Scene | THREE.Object3D) {
+    constructor(content: any, parent = null, type = VNodeTypes.ELEMENT) {
         // super();
         this.content = content;
         this.childNodes = [];
         this.type = type;
-        if(parent) this.parentNode = parent;
-        if(parentElement) this.parentElement = parentElement;
+        this.parentNode = parent;
     }
 
     // Methods for exposing private properties to parents
@@ -78,17 +69,12 @@ export class VNode {
         this.parentNode = node;
     }
 
-    setParentElement(node: ThreeParents) {
-        this.parentElement = node;
-    }
-
     // Inserts node before the anchor node
     // If no node is provided, node is inserted as last child
     insertBefore(node: VNode, anchor: VNode | null) {
         // Set this node as the parent to the incoming node
         console.log('inserting before', node.setParentNode, node.content)
         node.setParentNode(this);
-        node.setParentElement(this.parentElement);
         // ThreeJS: Set the scene from parent node
 
         // Find anchor and insert node using anchor index 
@@ -116,9 +102,6 @@ export class VNode {
                 // If the index is 0, we need to also update firstChild property
                 if(anchorIndex === 0) this.firstChild = node;
 
-                // ThreeJS: Add element to Scene
-                node.addToParentElement();
-
                 return this;
             }
         }
@@ -127,27 +110,13 @@ export class VNode {
             node,
         ]
 
-        // ThreeJS: Add element to Scene
-        node.addToParentElement();
-
         return this;
     }
 
     removeChild(node: VNode) {
         this.childNodes = this.childNodes.filter((childNode) => node != childNode);
 
-        // ThreeJS: Remove from Scene
-        node.removeFromParentElement();
-
         return this;
-    }
-
-    // ThreeJS specific
-    addToParentElement() {
-        this.parentElement.add(this.content);
-    }
-    removeFromParentElement() {
-        this.parentElement.remove(this.content);
     }
 
     // Maybe not necessary
@@ -163,9 +132,9 @@ export class VNode {
  * Should be used for most things on a page.
  */
 export class VElement extends VNode {
-    readonly attributes = {};
+    readonly attributes: Record<string, any> = {};
 
-    setAttribute(name: string, value: string) {
+    setAttribute(name: string, value: any) {
         this.attributes[name] = value;
     }
     getAttribute(name: string) {

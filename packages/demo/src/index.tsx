@@ -1,5 +1,15 @@
 import { Window } from "skia-canvas";
 import store from "./store";
+import { render, VElement } from "solid-skia-renderer";
+
+const App = () => {
+  const newElement = new VElement('app')
+  return newElement;
+}
+const tree = new VElement('root')
+
+render(App, tree);
+console.log('[APP] node tree', tree)
 
 let win = new Window(300, 300,{background:'rgba(16, 16, 16, 0.35)'});
 win.title = "Canvas Window";

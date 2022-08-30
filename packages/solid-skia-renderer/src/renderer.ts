@@ -3,7 +3,7 @@ import { createRenderer } from "solid-js/universal";
 import { VElement } from "./node"
 // import { createElement as createThreeElement, SupportedThreeElements } from "./three"
 
-const log = (...args) => {
+const log = (...args: any) => {
   console.log(`[RENDERER] `, ...args);
 }
 
