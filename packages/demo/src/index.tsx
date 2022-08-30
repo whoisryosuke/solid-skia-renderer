@@ -17,8 +17,13 @@ const App = () => {
   const newElement = new VElement('app')
   console.log('[APP] rendering App component', frames());
   //@ts-ignore
-  // return (<div></div>);
-  return <Window frames={frames()} />;
+  return <testelement>
+  {/* @ts-ignore  */}
+    <Window frames={frames()} />
+  {/* @ts-ignore  */}
+    <Window frames={frames()} />
+  {/* @ts-ignore  */}
+  </testelement>;
 }
 //@ts-ignore
 render(App, null);

@@ -2,14 +2,14 @@
   "name": "solid-skia-renderer",
   "version": "0.0.0",
   "main": "./dist/index.js",
-  "types": "./dists/index.d.ts",
+  "types": "./dist/index.d.ts",
   "authors": [
     "Ryosuke Hana <https://twitter.com/whoisryosuke>"
   ],
   "license": "MIT",
   "scripts": {
     "build": "yarn build:all",
-    "build:all": "tsup src/index.ts --dts",
+    "build:all": "tsup src/index.ts --dts --sourcemap",
     "build:types": "tsup src/index.ts --dts-only",
     "prerelease": "yarn build",
     "release": "semantic-release"

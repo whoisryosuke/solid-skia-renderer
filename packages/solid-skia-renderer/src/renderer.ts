@@ -38,7 +38,7 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
-    log('render', {parent, node}, node.childNodes[0], node.content)
+    log('render', {parent, node})
     if(!parent){
       log('no parent found!', node, node.content, node.childNodes)
     }

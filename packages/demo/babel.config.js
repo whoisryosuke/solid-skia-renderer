@@ -1,7 +1,8 @@
 module.exports = {
   presets: [
     "@babel/preset-typescript",
-    "solid",
+    ["solid", { generate: "ssr", hydratable: false }],
+    // "solid",
     [
       "@babel/preset-env",
       {
