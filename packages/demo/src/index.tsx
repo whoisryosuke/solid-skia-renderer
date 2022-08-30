@@ -19,14 +19,9 @@ const App = () => {
 
   onCleanup(() => clearInterval(interval));
 
-  const newElement = new VElement('app')
   console.log('[APP] rendering App component', frames());
   //@ts-ignore
   return <testelement>
-  {/* @ts-ignore  */}
-    <Window frames={frames()}>
-      <Button />
-    </Window>
   {/* @ts-ignore  */}
     <Window frames={frames()}>
       <Button />

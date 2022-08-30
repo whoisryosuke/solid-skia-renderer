@@ -6,7 +6,6 @@ type Props = {}
 const Window = (props: ParentProps<Props>) => {
 
     const childrenMap = children(() => props.children);
-    console.log('[WINDOW] children', props.children, childrenMap.toArray())
 
     // Initialize Window
     let win = new SkiaWindow(300, 300,{background:'rgba(16, 16, 16, 0.35)'});
@@ -14,7 +13,7 @@ const Window = (props: ParentProps<Props>) => {
 
     // Render / infinite loop lifecycle
     win.on("draw", (e) => {
-        let ctx = e.target.canvas.getContext("2d");
+        let ctx: CanvasRenderingContext2D = e.target.canvas.getContext("2d");
         // console.log("test", e.target);
         ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
         ctx.beginPath();
@@ -25,6 +24,8 @@ const Window = (props: ParentProps<Props>) => {
         ctx.arc(150, 150, 10, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
+        
+        console.log('[WINDOW] children', props.children, childrenMap.toArray())
     });
 
     win.on('mousemove', ({button, x, y, target, ctrlKey, altKey, shiftKey, metaKey, pageX, pageY, ...rest}) => {
