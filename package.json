@@ -1,5 +1,5 @@
 {
-  "name": "solid-canvaskit-renderer-monorepo",
+  "name": "solid-skia-renderer-monorepo",
   "version": "0.0.0",
   "main": "index.js",
   "authors": [
@@ -11,11 +11,11 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace solid-canvaskit-renderer-demo dev",
-    "build": "yarn workspace solid-canvaskit-renderer build",
+    "dev": "yarn workspace solid-skia-renderer-demo start",
+    "build": "yarn workspace solid-skia-renderer build",
     "prettier": "prettier -l \"./packages/**/*.{js,jsx,ts,tsx,md}\" --write",
     "commit": "git-cz",
-    "release": "yarn workspace solid-canvaskit-renderer release"
+    "release": "yarn workspace solid-skia-renderer release"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

@@ -1,24 +1,22 @@
 {
-  "name": "solid-canvaskit-renderer-demo",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.html",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
+  "name": "solid-skia-renderer-demo",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
   "dependencies": {
-    "solid-js": "^1.4.7",
-    "solid-canvaskit-renderer": "*",
-    "three": "0.112.1"
+    "skia-canvas": "^1.0.0",
+    "solid-skia-renderer": "*",
+    "zustand": "^4.1.1"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "lint:ts": "tsc src/index.ts --noEmit",
+    "build": "tsc src/index.ts"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.9",
-    "babel-preset-solid": "^1.4.6",
-    "typescript": "^4.6.4",
-    "vite": "^3.0.1",
-    "vite-plugin-solid": "^2.3.0"
-  },
-  "keywords": []
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.7.13",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
+  }
 }

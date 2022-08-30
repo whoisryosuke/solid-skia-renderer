@@ -1,5 +1,5 @@
 {
-  "name": "solid-canvaskit-renderer",
+  "name": "solid-skia-renderer",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "authors": [
@@ -15,7 +15,7 @@
     "dist"
   ],
   "dependencies": {
-    "canvaskit-wasm": "^0.35.0",
+    "skia-canvas": "^1.0.0",
     "solid-js": "^1.4.7"
   },
   "devDependencies": {
