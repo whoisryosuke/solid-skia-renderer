@@ -18,7 +18,7 @@ const App = () => {
   console.log('[APP] rendering App component', frames());
   //@ts-ignore
   // return (<div></div>);
-  return <Window />;
+  return <Window frames={frames()} />;
 }
 //@ts-ignore
 render(App, null);
