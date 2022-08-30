@@ -38,16 +38,10 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
-    log('render', parent, node, node.childNodes[0], node.content)
+    log('render', {parent, node}, node.childNodes[0], node.content)
     if(!parent){
       log('no parent found!', node, node.content, node.childNodes)
     }
-    log('inserting node', node);
-    // parent.insertBefore(node, anchor);
-
-    // Ideally we don't need this? Since CanvasKit/Skia doesn't use a node-based system
-    // Our goal is just to take JSX and convert it to a render/draw call
-    // Unless SolidJS needs this to manage JSX changes? (like hiding an element and thus removing from "DOM"?)
   },
   isTextNode(node: VElement) {
     return node.type === 3;

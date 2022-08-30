@@ -1,8 +1,8 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "esnext",
-    "target": "es2017",
+    "target": "es2021",
     "lib": [
       "es2017",
       "dom"
@@ -15,9 +15,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
     "strictPropertyInitialization": false,
 
   }

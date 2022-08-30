@@ -1,7 +1,9 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "commonjs",
     "outDir": "dist",
+    "allowJs": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "strictPropertyInitialization": false,
