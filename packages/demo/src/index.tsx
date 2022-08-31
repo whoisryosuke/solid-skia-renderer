@@ -28,7 +28,6 @@ const App = () => {
   return <testelement>
     <Window frames={frames()}>
       <Button />
-      <Button />
     </Window>
   </testelement>;
 }
