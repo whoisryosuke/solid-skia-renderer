@@ -1,28 +1,27 @@
-# Solid Universal Renderer Template
+![Screenshot of the example code and the GUI app running](docs/thumbnail.png)
 
-Custom renderer for SolidJS using [your API here!]. Write JSX, render directly to [whatever you want!], no DOM required (unless you want!).
+# Solid Skia Renderer
+
+Custom renderer for SolidJS using [skia-canvas](https://github.com/samizdatco/skia-canvas). Write JSX, render directly to the canvas, no DOM required.
 
 This is setup with a Semantic Release workflow based off Conventional Commits. And it's automatically released to Github and NPM using Github Actions.
 
-## How to use
+## Quick Start
 
-1. Follow the instructions below to get the dev server up.
-1. Check out the renderer inside `packages/solid-canvaskit-renderer`. This where the action happens like creating new elements, setting props, etc. I setup `console.log` in a few places to give you an idea of what you get to work with.
-1. Your goal should be to take "elements" (usually strings from element tags e.g. `<yourElement>`) and render those somehow (ThreeJS, CanvasKit, or even custom DOM).
+1. Fork/clone this repo: `https://github.com/whoisryosuke/solid-skia-renderer.git`
+1. `yarn` - Install NPM dependencies.
+1. `yarn build` - Build the universal renderer module.
+1. `yarn start` - Start the NodeJS example project.
 
-### Tips
+You should see a GUI popup in a small window.
 
-- You don't need to implement all the renderer methods! Most are kinda optional, especially if you don't have things like parent/child relationships between components.
-- Similarly, you don't necessarily need a (virtual or not) DOM/node tree. If your graphics API is a flat scene graph, you don't need to worry about all the "parent"/"child" methods. If you do need a virtual DOM, I have a `VNode` class that has most methods you'll need.
-- SolidJS goes through the component tree as a giant call stack of functions, first starting with `createElement`, then `insertBefore`, etc.
+> The process will keep running in console, you can close it using `CTRL/CMD + C`.
 
 ## Development
 
-There's a Vite website under `packages/demo` to be a playground to develop and test the library.
+There's a NodeJS app under `packages/demo` to be a playground to develop and test the library.
 
-1. Fork/clone this repo: `https://github.com/whoisryosuke/solid-canvaskit-renderer.git`
-1. Install dependencies: `yarn`
-1. Start the Vite playground: `yarn dev`
+The universal renderer is in the `packages/solid-skia-renderer` folder. If you make any changes here, make sure to run `yarn build`.
 
 ## Building package
 
