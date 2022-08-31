@@ -27,11 +27,11 @@ const Window = (props: ParentProps<Props>) => {
         // ctx.stroke();
         // ctx.fill();
 
+        // console.log('[WINDOW] children', props.children, childrenMap.toArray())
+        // Loop through the children and run their render method
+        // @TODO: Loop recursively through any container children
         const childrenArray = childrenMap.toArray();
         childrenArray.forEach((child) => child?.render?.(e, ctx))
-        
-        
-        // console.log('[WINDOW] children', props.children, childrenMap.toArray())
     });
 
     win.on('mousemove', ({button, x, y, target, ctrlKey, altKey, shiftKey, metaKey, pageX, pageY, ...rest}) => {
