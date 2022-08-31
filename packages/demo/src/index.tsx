@@ -6,6 +6,10 @@ import SkiaButton from "./elements/Button";
 
 const Button = () => {
   console.log('[BUTTON] rendering')
+
+  // In order to give the end user access to drawing to canvas
+  // We return a class that extends VElement with a `render()` method
+  // Any `<Window>` will go through it's child components and run that `render()`
   return new SkiaButton('button');
 }
 
@@ -21,13 +25,11 @@ const App = () => {
   onCleanup(() => clearInterval(interval));
 
   console.log('[APP] rendering App component', frames());
-  //@ts-ignore
   return <testelement>
-  {/* @ts-ignore  */}
     <Window frames={frames()}>
       <Button />
+      <Button />
     </Window>
-  {/* @ts-ignore  */}
   </testelement>;
 }
 const rootEl = new VElement('root');
