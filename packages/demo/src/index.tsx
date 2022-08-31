@@ -13,20 +13,20 @@ const Button = () => {
   return new SkiaButton('button');
 }
 
-const [frames, setFrames] = createSignal(0);
+// const [frames, setFrames] = createSignal(0);
 
 const App = () => {
 
-  const interval = setInterval(() => {
-    setFrames((prevFrame) => prevFrame++)
-    console.log('[APP] looping')
-  }, 100)
+  // const interval = setInterval(() => {
+  //   setFrames((prevFrame) => prevFrame++)
+  //   console.log('[APP] looping')
+  // }, 100)
 
-  onCleanup(() => clearInterval(interval));
+  // onCleanup(() => clearInterval(interval));
 
-  console.log('[APP] rendering App component', frames());
+  // console.log('[APP] rendering App component', frames());
   return <testelement>
-    <Window frames={frames()}>
+    <Window>
       <Button />
     </Window>
   </testelement>;
