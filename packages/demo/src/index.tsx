@@ -1,9 +1,10 @@
 import { Window as SkiaWindow, CanvasRenderingContext2D } from "skia-canvas";
 import store, { SkiaDrawEvent } from "./store";
 import { render, VElement, } from "solid-skia-renderer";
-import { createSignal, onCleanup, batch, createMemo } from "solid-js";
+import { createSignal, onCleanup,onMount, batch, createMemo } from "solid-js";
 import Window from "./components/Window"
 import SkiaButton from "./elements/Button";
+import { SkiaElement } from "./types";
 
 type ButtonProps = {
   position: number[];
@@ -11,9 +12,24 @@ type ButtonProps = {
 
 // We can create functional components like we would in Solid/React/Preact
 const Button = ({position}: ButtonProps) => {
+  const [isMounted, setIsMounted] = createSignal(false);
+
   console.log('[BUTTON] rendering')
-  const { context } = store.getState();
-  if(!context) return null;
+  const { scene, addNode } = store.getState();
+
+  const mountComponent = (component: SkiaElement) => {
+    console.log('[BUTTON] Adding node to scene graph')
+    addNode(component);
+    setIsMounted(true);
+  }
+
+  // These don't work
+  onMount(() => {
+    console.log('[BUTTON] Mounting')
+  })
+  onCleanup(() => {
+    console.log('[BUTTON] Cleaning up')
+  })
 
   // In order to give the end user access to drawing to canvas
   // We return a class that extends VElement with a `render()` method
@@ -21,10 +37,11 @@ const Button = ({position}: ButtonProps) => {
   // This is similar to the DOM's `document.createElement('div')`, which happens underneath your `<div>`
   // @TODO: Allow this -- but also let user type `<button>` and get a generic button from Solid universal?
   const ref = new SkiaButton(position);
-  return ref.render(context);
+  mountComponent(ref);
+  return null;
 }
 
-// Signals work! 
+// Signals work! Only outside components though (aka global state)
 const [frames, setFrames] = createSignal(0);
 
 const App = () => {
@@ -91,8 +108,29 @@ const draw = (e: SkiaDrawEvent) => {
     // @TODO: Loop recursively through any container children
     // childrenArray.forEach((child) => child?.render?.(e, ctx))
 
+    // Render the JSX using SolidJS
+    // This basically runs each component like a method
+    // The components should:
+    // 1) return other components or 
+    // 2) create and add an element to the "scene graph" in Zustand store
+    // So they can be rendered, process events, etc
     //@ts-ignore
     render(App, rootEl);
+
+    const {scene, setScene} = store.getState();
+
+    // console.log('scene', scene)
+
+    // Render all nodes in scene graph
+    scene.forEach(node => {
+      node.render(e);
+    })
+
+    // Clear the scene graph.
+    // We do this because SolidJS components can't store state.
+    // The element class can -- but since we create a "new" one through the JSX component
+    // every frame, it wouldn't work anyway.
+    setScene([])
 
 }
 

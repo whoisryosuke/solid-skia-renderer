@@ -3,9 +3,12 @@ import { createRenderer } from "solid-js/universal";
 import { VElement } from "./node"
 // import { createElement as createThreeElement, SupportedThreeElements } from "./three"
 
+
 const log = (...args: any) => {
   console.log(`[RENDERER] `, ...args);
 }
+
+log('renderer running!')
 
 export const {
   render,
@@ -22,6 +25,7 @@ export const {
 } = createRenderer({
   createElement(elementName: string): VElement {
     log('creating element', elementName);
+    console.log('creating element', elementName)
 
     return new VElement(elementName);
   },

@@ -2,11 +2,12 @@ import { CanvasRenderingContext2D, Window } from "skia-canvas/lib";
 import { createSignal } from "solid-js";
 import { VElement } from "solid-skia-renderer";
 import store, { SkiaDrawContext, SkiaDrawEvent } from "../store"
+import { SkiaElement } from "../types";
 
 // We can use signals here too - basically like Zustand store - global-ish state
 const [frames, setFrames] = createSignal(0);
 
-export default class SkiaButton extends VElement {
+export default class SkiaButton extends SkiaElement {
 
     // Pass in any properties we need access to in our render or input events
     position: number[] = [0,0];
@@ -31,7 +32,7 @@ export default class SkiaButton extends VElement {
         ctx.stroke();
         ctx.fill();
 
-        console.log('[BUTTON] Drawing', frames())
+        // console.log('[BUTTON] Drawing', frames())
 
         // Solid Signal example
         setFrames((prev) => prev + 1)
