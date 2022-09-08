@@ -22,15 +22,14 @@ You should see a GUI popup in a small window.
 At a high level, the app breaks down to this flow:
 
 1. We run NodeJS.
-1. It runs SolidJS and renders an app.
-1. SolidJS uses a custom universal renderer to run JSX components
-1. A top-level `<Window>` component handles creating window and canvas using skia-canvas.
 1. skia-canvas takes over the NodeJS I/O with it's render loop. It provides event listeners to methods like `draw`.
-1. Nested under `<Window>`, other JSX components (like `<Button />`) return a `SkiaElement` class that handles drawing the component to canvas, input events (e.g. keyboard press), and component lifecycle. These elements "hook" into skia-canvas event listeners to allow us to run logic during the blocking I/O loop.
+1. In the draw method we run SolidJS and render an app.
+1. SolidJS uses a custom universal renderer to run JSX components
+1. JSX components (like `<Button />`) create a `SkiaElement` class that handles drawing the component to canvas, input events (e.g. keyboard press), and component lifecycle.
+1. The JSX component returns the `render()` method of a `SkiaElement` element (or JSX children)
 
 ### Considerations
 
-- **Render once** - The app renders once. That means anything that requires a re-render won't happen (e.g. `<>{isVisible && <Button />}</>` would never render/disappear - only initial value).
 - **Respect the render loop.** It's like a SolidJS app -- but not. You can use features like `createSignal` to create state, but any loop/time based methods like `setInterval` won't work. Instead, you should use the `render` method in your `SkiaElement` to access the `time` in context, and manage your own timers/intervals there. It's like doing everything inside a `requestAnimationFrame`.
 
 ## Development
