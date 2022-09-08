@@ -26,6 +26,7 @@ export const {
     return new VElement(elementName);
   },
   createTextNode(elementName: string): VElement {
+    log('creating text element', elementName);
     // @TODO: Figure out Text in ThreeJS
     // return createTextElement(value);
     return new VElement(elementName);
@@ -41,6 +42,7 @@ export const {
     if(!parent){
       log('no parent found!', node, node.content, node.childNodes)
     }
+    node.setParentNode(parent);
   },
   isTextNode(node: VElement) {
     return node.type === 3;

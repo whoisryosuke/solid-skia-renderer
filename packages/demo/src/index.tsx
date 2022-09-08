@@ -1,3 +1,4 @@
+import { Window as SkiaWindow, CanvasRenderingContext2D } from "skia-canvas";
 import store from "./store";
 import { render, VElement, } from "solid-skia-renderer";
 import { createSignal, onCleanup, batch, createMemo } from "solid-js";
@@ -11,13 +12,16 @@ type ButtonProps = {
 // We can create functional components like we would in Solid/React/Preact
 const Button = ({position}: ButtonProps) => {
   console.log('[BUTTON] rendering')
+    const { context } = store.getState();
+  if(!context) return null;
 
   // In order to give the end user access to drawing to canvas
   // We return a class that extends VElement with a `render()` method
   // Any `<Window>` will go through it's child components and run that `render()`
   // This is similar to the DOM's `document.createElement('div')`, which happens underneath your `<div>`
   // @TODO: Allow this -- but also let user type `<button>` and get a generic button from Solid universal?
-  return new SkiaButton(position);
+  const ref = new SkiaButton(position);
+  return ref.render(context);
 }
 
 // Signals work! 
@@ -45,21 +49,70 @@ const App = () => {
   // Using the `createMemo` function directly circumvents this (albeit not as nice)
   // **Ultimately, this only runs once, so any state/store stuff won't work**
   const optionalButton = createMemo(() => { 
-    const { bears } = store.getState();
     //@ts-ignore
-    return bears > 1 && <Button position={[100,100]} />
+    return frames() > 50 && <Button position={[100,100]} />
   })
 
   return (
     // @TODO: Add void and SkiaElement as a return to JSX Elements (in global.d.ts)
     //@ts-ignore
-    <Window>
+    <>
       {/* @ts-ignore */}
       <Button position={[50,50]} />
+      {/* @ts-ignore */}
       {optionalButton}
-    </Window>
+    </>
     );
 }
 const rootEl = new VElement('root');
-//@ts-ignore
-render(App, rootEl);
+
+
+
+// Initialize Window
+let win = new SkiaWindow(300, 300,{background:'rgba(16, 16, 16, 0.35)'});
+win.title = "Canvas Window";
+
+const draw = (e) => {
+    let ctx: CanvasRenderingContext2D = e.target.canvas.getContext("2d");
+    const {setContext} = store.getState();
+    setContext(ctx);
+    // console.log("test", e.target);
+    // ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
+    // ctx.beginPath();
+    // ctx.arc(150, 150, 50, 0, 2 * Math.PI);
+    // ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.arc(150, 150, 10, 0, 2 * Math.PI);
+    // ctx.stroke();
+    // ctx.fill();
+
+    // console.log('[WINDOW] children', props.children, childrenMap.toArray())
+    // Loop through the children and run their render method
+    // @TODO: Loop recursively through any container children
+    // childrenArray.forEach((child) => child?.render?.(e, ctx))
+
+    //@ts-ignore
+    render(App, rootEl);
+
+}
+
+// Render / infinite loop lifecycle
+win.on("draw", draw);
+
+win.on('mousemove', (e) => {
+    
+    // childrenArray.forEach((child) => child?.mouse?.(e, win))
+})
+
+win.on('keydown', ({key, target}) => {
+    let ctx = target.canvas.getContext("2d");
+    // const { canvas, ctx } = win;
+    if (key == 'Escape'){
+        // ctx.clearRect(0, 0, target.canvas.width, target.canvas.height)
+
+        // Close window
+        target.close()
+    }
+    // childrenArray.forEach((child) => child?.keyboard?.(key, target))
+})

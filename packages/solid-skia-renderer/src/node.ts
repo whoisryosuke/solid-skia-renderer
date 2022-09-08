@@ -73,7 +73,7 @@ export class VNode {
     // If no node is provided, node is inserted as last child
     insertBefore(node: VNode, anchor: VNode | null) {
         // Set this node as the parent to the incoming node
-        console.log('inserting before', node.setParentNode, node.content)
+        console.log('[VNODE] inserting before', node.setParentNode, node.content)
         node.setParentNode(this);
         // ThreeJS: Set the scene from parent node
 

@@ -17,21 +17,20 @@ export default class SkiaButton extends VElement {
     }
 
     // This is called on the `draw` lifecycle (e.g. each frame)
-    render(e: any, ctx: CanvasRenderingContext2D) {
+    render(ctx: CanvasRenderingContext2D) {
 
-        // We can use Zustand store here to effect render
-        // In this case, more "bears" = bigger radius of circle
-        const { bears } = store.getState();
   
-        ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
-        ctx.beginPath();
-        ctx.arc(this.position[0], this.position[1], 50, 0, 2 * Math.PI);
-        ctx.stroke();
+        // ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
+        // ctx.beginPath();
+        // ctx.arc(this.position[0], this.position[1], 50, 0, 2 * Math.PI);
+        // ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(this.position[0], this.position[1], bears, 0, 2 * Math.PI);
+        ctx.arc(this.position[0], this.position[1], 10, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
+
+        // console.log('parent node', this.parentNode)
     }
 
     // @TODO: Handle mouse events
