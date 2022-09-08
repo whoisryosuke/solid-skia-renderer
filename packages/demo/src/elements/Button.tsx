@@ -1,7 +1,7 @@
 import { CanvasRenderingContext2D, Window } from "skia-canvas/lib";
 import { createSignal } from "solid-js";
 import { VElement } from "solid-skia-renderer";
-import store from "../store"
+import store, { SkiaDrawContext, SkiaDrawEvent } from "../store"
 
 // We can use signals here too - basically like Zustand store - global-ish state
 const [frames, setFrames] = createSignal(0);
@@ -17,7 +17,8 @@ export default class SkiaButton extends VElement {
     }
 
     // This is called on the `draw` lifecycle (e.g. each frame)
-    render(ctx: CanvasRenderingContext2D) {
+    render(e: SkiaDrawContext) {
+        let ctx: CanvasRenderingContext2D = e.target.canvas.getContext("2d");
 
   
         // ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
@@ -29,6 +30,11 @@ export default class SkiaButton extends VElement {
         ctx.arc(this.position[0], this.position[1], 10, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
+
+        console.log('[BUTTON] Drawing', frames())
+
+        // Solid Signal example
+        setFrames((prev) => prev + 1)
 
         // console.log('parent node', this.parentNode)
     }
@@ -52,11 +58,8 @@ export default class SkiaButton extends VElement {
             // We can use Zustand store here to communicate back to SolidJS layer
             // Or even to the Skia render layer (aka `render()` above)
             // When user left clicks anywhere, increase number of "bears" in app
-            const { increase } = store.getState();
-            increase(1);
-
-            // Solid Signal example
-            setFrames((prev) => prev + 1)
+            // const { increase } = store.getState();
+            // increase(1);
         }
 
         // Shift and left click!

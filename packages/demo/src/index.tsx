@@ -1,5 +1,5 @@
 import { Window as SkiaWindow, CanvasRenderingContext2D } from "skia-canvas";
-import store from "./store";
+import store, { SkiaDrawEvent } from "./store";
 import { render, VElement, } from "solid-skia-renderer";
 import { createSignal, onCleanup, batch, createMemo } from "solid-js";
 import Window from "./components/Window"
@@ -12,7 +12,7 @@ type ButtonProps = {
 // We can create functional components like we would in Solid/React/Preact
 const Button = ({position}: ButtonProps) => {
   console.log('[BUTTON] rendering')
-    const { context } = store.getState();
+  const { context } = store.getState();
   if(!context) return null;
 
   // In order to give the end user access to drawing to canvas
@@ -66,16 +66,15 @@ const App = () => {
 }
 const rootEl = new VElement('root');
 
-
-
 // Initialize Window
-let win = new SkiaWindow(300, 300,{background:'rgba(16, 16, 16, 0.35)'});
+let win = new SkiaWindow(800, 800,{background:'rgba(16, 16, 16, 0.35)'});
 win.title = "Canvas Window";
 
-const draw = (e) => {
-    let ctx: CanvasRenderingContext2D = e.target.canvas.getContext("2d");
-    const {setContext} = store.getState();
-    setContext(ctx);
+const draw = (e: SkiaDrawEvent) => {
+  console.log('draw type', typeof e, Object.keys(e))
+
+    const {syncDraw} = store.getState();
+    syncDraw(e);
     // console.log("test", e.target);
     // ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
     // ctx.beginPath();
