@@ -5,7 +5,7 @@ interface BearState {
   increase: (by: number) => void
 }
 const store = create<BearState>((set) => ({
-  bears: 0,
+  bears: 1,
   increase: (by) => set((state) => ({ bears: state.bears + by })),
 }));
 

@@ -1,30 +1,63 @@
 import { CanvasRenderingContext2D, Window } from "skia-canvas/lib";
+import { createSignal } from "solid-js";
 import { VElement } from "solid-skia-renderer";
+import store from "../store"
+
+// We can use signals here too - basically like Zustand store - global-ish state
+const [frames, setFrames] = createSignal(0);
 
 export default class SkiaButton extends VElement {
+
+    // Pass in any properties we need access to in our render or input events
+    position: number[] = [0,0];
+
+    constructor(position = [0,0]) {
+        super('');
+        this.position = position;
+    }
+
     // This is called on the `draw` lifecycle (e.g. each frame)
     render(e: any, ctx: CanvasRenderingContext2D) {
+
+        // We can use Zustand store here to effect render
+        // In this case, more "bears" = bigger radius of circle
+        const { bears } = store.getState();
+  
         ctx.lineWidth = 25 + 25 * Math.cos(e.frame / 10);
         ctx.beginPath();
-        ctx.arc(150, 150, 50, 0, 2 * Math.PI);
+        ctx.arc(this.position[0], this.position[1], 50, 0, 2 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(150, 150, 10, 0, 2 * Math.PI);
+        ctx.arc(this.position[0], this.position[1], bears, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fill();
     }
 
     // @TODO: Handle mouse events
+    // These events are global (e.g. every component would know every click - instead of only "onClick" events)
+    // Ideally this method should only fire when this component is clicked
+    // Which can be done using a offscreen target rendering hitboxes, and having a higher class fire appropriate component method
     mouse({button, x, y, target, ctrlKey, altKey, shiftKey, metaKey, pageX, pageY, ...rest}: any, win: Window) {
-        let ctx = target.canvas.getContext("2d");
+        // We can access the canvas here if needed
+        // But you can't draw to it - that only happens in `render`
+        // let ctx = target.canvas.getContext("2d");
         // const { canvas, ctx } = win;
+
+        // Check the mouse event type (left, right, middle click)
         if (!shiftKey && button == 0){ // a left click
-            ctx.fillStyle = `rgb(${Math.floor(255 * Math.random())},50,0)`
-            ctx.beginPath()
-            ctx.arc(x, y, 10 + 30 * Math.random(), 0, 2 * Math.PI)
-            ctx.fill()
-            console.log('left click!', pageX, pageY)
+            
+            // See mouse X/Y ++ Solid Signal example
+            console.log('left click!', pageX, pageY, frames())
+
+            // We can use Zustand store here to communicate back to SolidJS layer
+            // Or even to the Skia render layer (aka `render()` above)
+            // When user left clicks anywhere, increase number of "bears" in app
+            const { increase } = store.getState();
+            increase(1);
+
+            // Solid Signal example
+            setFrames((prev) => prev + 1)
         }
 
         // Shift and left click!
@@ -33,18 +66,20 @@ export default class SkiaButton extends VElement {
 
         }
 
-        if (button == 1){ // a left click
+        // Middle click
+        if (button == 1){ 
             console.log('middle click!')
         }
 
-        if (button == 2){ // a left click
+        // Right click
+        if (button == 2){ 
             console.log('right click!')
         }
 
         win.cursor = button === 0 ? 'none' : 'crosshair'
     }
+    
     // @TODO: Handle keyboard events
-
     keyboard(key: string, target: any) {
         console.log('[BUTTON] Key pressed', key)
         if (key == 'A'){

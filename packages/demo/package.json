@@ -10,7 +10,7 @@
     "zustand": "^4.1.1"
   },
   "scripts": {
-    "start": "babel-node -x .tsx -- src/index.tsx",
+    "start": "babel-node -x .js,.jsx,.ts,.tsx -- src/index.tsx",
     "lint:ts": "tsc src/index.tsx --noEmit",
     "build": "tsc src/index.tsx"
   },
