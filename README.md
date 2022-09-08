@@ -30,7 +30,9 @@ At a high level, the app breaks down to this flow:
 
 ### Considerations
 
-- **Respect the render loop.** It's like a SolidJS app -- but not. You can use features like `createSignal` to create state, but any loop/time based methods like `setInterval` won't work. Instead, you should use the `render` method in your `SkiaElement` to access the `time` in context, and manage your own timers/intervals there. It's like doing everything inside a `requestAnimationFrame`.
+- **Respect the render loop.** It's like a SolidJS app -- but not. You can use features like `createSignal` to create state, but any loop/time based methods like `setInterval` won't work (or maybe they do?). Instead, you should use the `render` method in your `SkiaElement` to access the `time` in context, and manage your own timers/intervals there. It's like doing everything inside a `requestAnimationFrame`.
+
+> This method specifically renders the JSX tree using Solid every frame. This works great to allow better JSX features (like dynamic trees - hiding/showing elements via JSX). But it requires the components to now return a render call directly. It'd be better if the components put things into the scene graph (via Zustand store), then that got rendered. This defers rendering to window (better), and allows us access to the tree to do stuff like destroying elements, input events methods, etc.
 
 ## Development
 
