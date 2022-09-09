@@ -1,6 +1,8 @@
 // example custom dom renderer
 import { createRenderer } from "solid-js/universal";
+import Button from "./button";
 import { VElement } from "./node"
+import { useCounter } from "./useContext";
 // import { createElement as createThreeElement, SupportedThreeElements } from "./three"
 
 
@@ -9,6 +11,7 @@ const log = (...args: any) => {
 }
 
 log('renderer running!')
+
 
 export const {
   render,
@@ -27,7 +30,7 @@ export const {
     log('creating element', elementName);
     console.log('creating element', elementName)
 
-    return new VElement(elementName);
+    return new Button([100, 100]);
   },
   createTextNode(elementName: string): VElement {
     log('creating text element', elementName);
@@ -42,7 +45,9 @@ export const {
     node.setAttribute(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
-    log('render', {parent, node})
+    log('inserting node', {parent, node})
+    //@ts-ignore
+    node.render?.();
     if(!parent){
       log('no parent found!', node, node.content, node.childNodes)
     }

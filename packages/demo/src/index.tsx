@@ -1,10 +1,11 @@
 import { Window as SkiaWindow, CanvasRenderingContext2D } from "skia-canvas";
 import store, { SkiaDrawEvent } from "./store";
-import { render, VElement, } from "solid-skia-renderer";
+import { render, VElement,  } from "solid-skia-renderer";
 import { createSignal, onCleanup,onMount, batch, createMemo } from "solid-js";
 import Window from "./components/Window"
 import SkiaButton from "./elements/Button";
 import { SkiaElement } from "./types";
+import { CounterProvider } from "./components/CounterProvider";
 
 type ButtonProps = {
   position: number[];
@@ -36,9 +37,9 @@ const Button = ({position}: ButtonProps) => {
   // Any `<Window>` will go through it's child components and run that `render()`
   // This is similar to the DOM's `document.createElement('div')`, which happens underneath your `<div>`
   // @TODO: Allow this -- but also let user type `<button>` and get a generic button from Solid universal?
-  const ref = new SkiaButton(position);
-  mountComponent(ref);
-  return null;
+  // const ref = new SkiaButton(position);
+  // mountComponent(ref);
+  return <button></button>;
 }
 
 // Signals work! Only outside components though (aka global state)
@@ -73,12 +74,12 @@ const App = () => {
   return (
     // @TODO: Add void and SkiaElement as a return to JSX Elements (in global.d.ts)
     //@ts-ignore
-    <>
+    <CounterProvider>
       {/* @ts-ignore */}
       <Button position={[50,50]} />
       {/* @ts-ignore */}
       {optionalButton}
-    </>
+    </CounterProvider>
     );
 }
 const rootEl = new VElement('root');
