@@ -8,38 +8,29 @@ import { SkiaElement } from "./types";
 import { CounterProvider } from "./components/CounterProvider";
 
 type ButtonProps = {
-  position: number[];
 }
 
 // We can create functional components like we would in Solid/React/Preact
-const Button = ({position}: ButtonProps) => {
-  const [isMounted, setIsMounted] = createSignal(false);
+const Button = ({}: ButtonProps) => {
+  // Local state still doesn't work -- which is kinda a gamebreaker
+  const [position, setPosition] = createSignal([0,0]);
 
-  console.log('[BUTTON] rendering')
-  const { scene, addNode } = store.getState();
+  console.log('[BUTTON] rendering', position())
 
-  const mountComponent = (component: SkiaElement) => {
-    console.log('[BUTTON] Adding node to scene graph')
-    addNode(component);
-    setIsMounted(true);
-  }
-
-  // These don't work
-  onMount(() => {
-    console.log('[BUTTON] Mounting')
-  })
-  onCleanup(() => {
-    console.log('[BUTTON] Cleaning up')
+  setPosition((prevPosition) => {
+    const calcX = prevPosition[0] + 1;
+    const newX = calcX <= 800 ? calcX : 0;
+    const calcY = prevPosition[1] + 1;
+    const newY = calcY <= 800 ? calcY : 0;
+    return [newX, newY]
   })
 
-  // In order to give the end user access to drawing to canvas
-  // We return a class that extends VElement with a `render()` method
-  // Any `<Window>` will go through it's child components and run that `render()`
-  // This is similar to the DOM's `document.createElement('div')`, which happens underneath your `<div>`
-  // @TODO: Allow this -- but also let user type `<button>` and get a generic button from Solid universal?
-  // const ref = new SkiaButton(position);
-  // mountComponent(ref);
-  return <button></button>;
+  const x = position()[0];
+  const y = position()[1];
+
+  // We use lower case components, which access the SolidJS universal renderer
+  // and trigger custom Skia classes we create
+  return <arc x={x} y={y} radius={100} color="green" />;
 }
 
 // Signals work! Only outside components though (aka global state)

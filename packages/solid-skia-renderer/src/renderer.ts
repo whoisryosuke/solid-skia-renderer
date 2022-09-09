@@ -1,6 +1,6 @@
 // example custom dom renderer
 import { createRenderer } from "solid-js/universal";
-import Button from "./button";
+import Arc from "./arc";
 import { VElement } from "./node"
 import { useCounter } from "./useContext";
 // import { createElement as createThreeElement, SupportedThreeElements } from "./three"
@@ -30,7 +30,7 @@ export const {
     log('creating element', elementName);
     console.log('creating element', elementName)
 
-    return new Button([100, 100]);
+    return new Arc();
   },
   createTextNode(elementName: string): VElement {
     log('creating text element', elementName);
@@ -39,17 +39,15 @@ export const {
     return new VElement(elementName);
   },
   replaceText(textNode: VElement, value) {
-    textNode.content = value;
+    // textNode.elementType = value;
   },
   setProperty(node: VElement, name: string, value: any) {
-    node.setAttribute(name, value);
+    node.setProp(name, value);
   },
   insertNode(parent: VElement, node: VElement, anchor: VElement) {
     log('inserting node', {parent, node})
-    //@ts-ignore
-    node.render?.();
     if(!parent){
-      log('no parent found!', node, node.content, node.childNodes)
+      log('no parent found!', node, node.elementType, node.childNodes)
     }
     node.setParentNode(parent);
   },

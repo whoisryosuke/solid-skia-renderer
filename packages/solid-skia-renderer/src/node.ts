@@ -29,21 +29,21 @@ enum VNodeTypes {
 export class VNode {
     // Node properties
     /**
-     * Reference to the content (e.g. Mesh class in ThreeJS)
+     * Reference to the element type (e.g. arc or rect in Skia)
      */
-    content: any;
+    elementType: any;
     parentNode: VNode | null;
     nextSibling: VNode;
     prevSibling: VNode;
     childNodes: VNode[];
     firstChild: VNode;
-    // Convenience type to know what underlying content is
+    // Convenience type to know what underlying elementType is
     // So renderer can detect things like text and handle accordingly
     type: VNodeTypes;
 
-    constructor(content: any, parent = null, type = VNodeTypes.ELEMENT) {
+    constructor(elementType: any, parent:VElement | null = null, type = VNodeTypes.ELEMENT) {
         // super();
-        this.content = content;
+        this.elementType = elementType;
         this.childNodes = [];
         this.type = type;
         this.parentNode = parent;
@@ -73,7 +73,7 @@ export class VNode {
     // If no node is provided, node is inserted as last child
     insertBefore(node: VNode, anchor: VNode | null) {
         // Set this node as the parent to the incoming node
-        console.log('[VNODE] inserting before', node.setParentNode, node.content)
+        console.log('[VNODE] inserting before', node.setParentNode, node.elementType)
         node.setParentNode(this);
         // ThreeJS: Set the scene from parent node
 
@@ -132,12 +132,12 @@ export class VNode {
  * Should be used for most things on a page.
  */
 export class VElement extends VNode {
-    readonly attributes: Record<string, any> = {};
+    readonly props: Record<string, any> = {};
 
-    setAttribute(name: string, value: any) {
-        this.attributes[name] = value;
+    setProp(name: string, value: any) {
+        this.props[name] = value;
     }
-    getAttribute(name: string) {
-        this.attributes[name];
+    getProp(name: string) {
+        return this.props[name];
     }
 }
