@@ -74,12 +74,12 @@ const App = () => {
   return (
     // @TODO: Add void and SkiaElement as a return to JSX Elements (in global.d.ts)
     //@ts-ignore
-    <CounterProvider>
+    <Window>
       {/* @ts-ignore */}
       <Button position={[50,50]} />
       {/* @ts-ignore */}
       {optionalButton}
-    </CounterProvider>
+    </Window>
     );
 }
 const rootEl = new VElement('root');
@@ -118,20 +118,20 @@ const draw = (e: SkiaDrawEvent) => {
     //@ts-ignore
     render(App, rootEl);
 
-    const {scene, setScene} = store.getState();
+    // const {scene, setScene} = store.getState();
 
     // console.log('scene', scene)
 
     // Render all nodes in scene graph
-    scene.forEach(node => {
-      node.render(e);
-    })
+    // scene.forEach(node => {
+    //   node.render(e);
+    // })
 
     // Clear the scene graph.
     // We do this because SolidJS components can't store state.
     // The element class can -- but since we create a "new" one through the JSX component
     // every frame, it wouldn't work anyway.
-    setScene([])
+    // setScene([])
 
 }
 

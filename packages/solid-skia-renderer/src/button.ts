@@ -11,10 +11,7 @@ export default class Button extends VElement {
     }
 
 
-    render() {
-        const context: any = useCounter();
-        console.log('Button element - Context!!', context)
-
+    render(context: any) {
         let ctx: CanvasRenderingContext2D = context.target.canvas.getContext("2d");
         
         ctx.beginPath();
