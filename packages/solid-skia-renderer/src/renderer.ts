@@ -2,6 +2,8 @@
 import { createRenderer } from "solid-js/universal";
 import Arc from "./arc";
 import { VElement } from "./node"
+import store from "./store";
+import { SkiaElement } from "./types";
 import { useCounter } from "./useContext";
 // import { createElement as createThreeElement, SupportedThreeElements } from "./three"
 
@@ -44,12 +46,15 @@ export const {
   setProperty(node: VElement, name: string, value: any) {
     node.setProp(name, value);
   },
-  insertNode(parent: VElement, node: VElement, anchor: VElement) {
+  insertNode(parent: SkiaElement, node: SkiaElement, anchor: SkiaElement) {
     log('inserting node', {parent, node})
     if(!parent){
       log('no parent found!', node, node.elementType, node.childNodes)
     }
     node.setParentNode(parent);
+    // Insert node into scene graph
+    const {addNode} = store.getState()
+    addNode(node);
   },
   isTextNode(node: VElement) {
     return node.type === 3;
